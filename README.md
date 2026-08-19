@@ -7,6 +7,10 @@ between `open`, `in_progress` and `resolved`.
 **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS ·
 Supabase Auth · Supabase Postgres
 
+> **[NOTES.md](NOTES.md)** is the short write-up: architecture, trade-offs and
+> unfinished items, and how to test both roles. Everything below is the detail
+> behind it.
+
 ---
 
 ## Setup

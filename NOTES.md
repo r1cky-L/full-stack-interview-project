@@ -59,7 +59,7 @@ Three decisions worth calling out:
 Built to the 2–3 hour timebox.
 
 - **No unit tests.** Effort went to the two suites covering the actual risk:
-  `npm run security-check` (25 authorisation probes) and `npm run e2e` (both
+  `npm run security-check` (28 authorisation probes) and `npm run e2e` (both
   role journeys). Vitest around `validation.ts` and the route handlers would be
   next, so failures point at a function rather than a screen.
 - **No pagination.** The list fetches everything. Wrong past a few hundred rows;

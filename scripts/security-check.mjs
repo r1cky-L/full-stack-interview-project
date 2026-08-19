@@ -196,6 +196,27 @@ section('Customers see only their own tickets');
   check("PostgREST cannot fetch another customer's ticket by id", got === 0, `${got} rows returned`);
 }
 
+section('Customers cannot enumerate other users');
+{
+  // The tickets table is not the only thing worth stealing: an unrestricted
+  // profiles table hands over every registered email address.
+  const all = await rest('/profiles?select=id,email,role', { token: alice.token });
+  const rows = Array.isArray(all.body) ? all.body : [];
+  check(
+    'reading the whole profiles table returns only own row',
+    rows.length === 1 && rows[0]?.id === alice.id,
+    `${rows.length} rows returned`,
+  );
+
+  const otherCustomer = await rest(`/profiles?id=eq.${bob.id}&select=email`, { token: alice.token });
+  const foundCustomer = Array.isArray(otherCustomer.body) ? otherCustomer.body.length : 0;
+  check("cannot read another customer's profile", foundCustomer === 0, `${foundCustomer} rows`);
+
+  const agentRow = await rest(`/profiles?id=eq.${agent.id}&select=email`, { token: alice.token });
+  const foundAgent = Array.isArray(agentRow.body) ? agentRow.body.length : 0;
+  check("cannot read a support agent's profile", foundAgent === 0, `${foundAgent} rows`);
+}
+
 section('Customers cannot perform agent actions');
 {
   const own = await api(`/api/tickets/${aliceTicket.id}`, {

@@ -177,9 +177,10 @@ public anon key, which is what an attacker would actually do after reading the
 JavaScript bundle.
 
 It covers unauthenticated access, cross-customer reads through both surfaces,
-customers attempting agent actions, `profiles.role` updates, the
-`user_metadata` escalation trick, mass assignment on create, title rewrites
-blocked by column grants, deletion, and the agent's own happy path.
+enumerating the `profiles` table for other people's email addresses, customers
+attempting agent actions, `profiles.role` updates, the `user_metadata`
+escalation trick, mass assignment on create, title rewrites blocked by column
+grants, deletion, and the agent's own happy path.
 
 It needs an agent account. Add its credentials to `.env.local`:
 
